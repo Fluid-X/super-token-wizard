@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import CodeBlock from './componets/CodeBlock'
+import Header from './componets/Header'
+import SelectionBar from './componets/SelectionBar'
+import { CodeContext, initialState } from './context'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+	const [name, setName] = useState(initialState.name)
+	const [symbol, setSymbol] = useState(initialState.symbol)
+	const [initialSupply, setInitialSupply] = useState(
+		initialState.initialSupply
+	)
+	const [mintable, setMintable] = useState(initialState.mintable)
+	const [burnable, setBurnable] = useState(initialState.burnable)
+	const [supplyCapped, setSupplyCapped] = useState(initialState.supplyCapped)
+	const [maxSupply, setMaxSupply] = useState(initialState.maxSupply)
+
+	return (
+		<CodeContext.Provider
+			value={{
+				name,
+				symbol,
+				initialSupply,
+				mintable,
+				burnable,
+				supplyCapped,
+				maxSupply,
+				setName,
+				setSymbol,
+				setInitialSupply,
+				setMintable,
+				setBurnable,
+				setSupplyCapped,
+				setMaxSupply
+			}}
+		>
+			<Header />
+			<div className="app">
+				<div className="wrapper">
+					<SelectionBar />
+					<CodeBlock />
+				</div>
+			</div>
+		</CodeContext.Provider>
+	)
 }
-
-export default App;
